@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bots Discord - Dragon Noctar & Cat Thunder</title>
+    <style>
+        :root {
+            --discord-blue: #5865F2;
+            --discord-dark: #36393f;
+            --discord-darker: #2f3136;
+            --discord-light: #dcddde;
+            --discord-green: #43b581;
+            --discord-red: #f04747;
+            --discord-yellow: #faa61a;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--discord-darker);
+            color: var(--discord-light);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--discord-dark);
+            text-align: center;
+            padding: 50px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        header h1 {
+            margin: 0;
+            color: white;
+            font-size: 3rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-top: 10px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .bots-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px 0 60px;
+        }
+        
+        .bot-card {
+            background-color: var(--discord-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            width: 400px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .bot-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bot-header {
+            padding: 25px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(to bottom, rgba(88, 101, 242, 0.1), transparent);
+        }
+        
+        .bot-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border: 3px solid var(--discord-blue);
+            position: relative;
+        }
+        
+        .bot-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .bot-card:hover .bot-avatar img {
+            transform: scale(1.1);
+        }
+        
+        .bot-info {
+            flex-grow: 1;
+        }
+        
+        .bot-name {
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: white;
+            margin: 0 0 5px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        .bot-type {
+            font-size: 0.9rem;
+            color: var(--discord-blue);
+            background-color: rgba(88, 101, 242, 0.1);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            font-weight: 600;
+        }
+        
+        .bot-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .bot-description {
+            margin-bottom: 25px;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+        
+        .bot-description p {
+            margin-top: 0;
+            font-size: 1rem;
+        }
+        
+        .features-title {
+            color: var(--discord-blue);
+            font-weight: 600;
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+        }
+        
+        .features-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 0 0 25px;
+        }
+        
+        .features-list li {
+            padding: 8px 0 8px 28px;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .features-list li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 12px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--discord-blue);
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: auto;
+            padding-top: 20px;
+        }
+        
+        .button {
+            display: inline-block;
+            background-color: var(--discord-blue);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            cursor: pointer;
+            /* Modification ici: Limiter la largeur du bouton */
+            width: auto;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .button:hover {
+            background-color: #4752c4;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .button:active {
+            transform: translateY(1px);
+        }
+        
+        .button i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background-color: var(--discord-dark);
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .creator-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            display: inline-flex;
+        }
+        
+        .creator-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--discord-blue);
+        }
+        
+        .creator-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .creator-info:hover .creator-avatar img {
+            transform: scale(1.1);
+        }
+        
+        .top-sites {
+            background-color: var(--discord-dark);
+            padding: 35px;
+            margin: 60px 0;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .top-sites h2 {
+            margin-top: 0;
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .top-sites a {
+            color: var(--discord-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+        
+        .top-sites a:hover {
+            color: #4752c4;
+            text-decoration: underline;
+        }
+        
+        .bot-status {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        
+        .status-online {
+            background-color: rgba(67, 181, 129, 0.2);
+            color: var(--discord-green);
+        }
+        
+        @media (max-width: 768px) {
+            .bots-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .bot-card {
+                width: 100%;
+                max-width: 450px;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+            
+            /* Ajout d'une règle pour assurer que le bouton s'adapte sur mobile */
+            .button {
+                padding: 12px 15px;
+                font-size: 1rem;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Bots Discord</h1>
+            <p>Découvrez nos bots Discord conçus pour améliorer votre expérience et ajoutez-les à vos serveurs dès maintenant !</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="bots-container">
+            <!-- Dragon Noctar Bot Card -->
+            <div class="bot-card">
+                <div class="bot-header">
+                    <div class="bot-avatar">
+                        <img src="https://cdn.discordapp.com/avatars/1360778089231155382/f838a71bfa45ad625fb2df231b543610.png" alt="Dragon Noctar">
+                    </div>
+                    <div class="bot-info">
+                        <h2 class="bot-name">Dragon Noctar</h2>
+                        <span class="bot-type">Blox Fruits</span>
+                        <span class="bot-status status-online">En ligne</span>
+                    </div>
+                </div>
+                <div class="bot-content">
+                    <div class="bot-description">
+                        <p>🐉 Dragon Noctar récupère en temps réel les informations sur les fruits depuis un site web BloxFruit, crée des messages Discord interactifs avec des boutons pour lancer le jeu en un clic, et envoie des alertes instantanées aux membres quand des fruits rares comme le légendaire Dragon sont détectés!</p>
+                        
+                        <h3 class="features-title">🔥 Caractéristiques</h3>
+                        <ul class="features-list">
+                            <li>Surveillance automatique des fruits toutes les 2 heures avec double vérification</li>
+                            <li>Alertes spéciales et messages privés pour le fruit Dragon</li>
+                            <li>Gestion de canaux de notification sur plusieurs serveurs Discord</li>
+                            <li>Utilisation d'emojis personnalisés pour des messages visuels</li>
+                            <li>Commandes puissantes (/fruits, /dragon, /setupchannel)</li>
+                            <li>Support technique 24/7 et mises à jour régulières</li>
+                        </ul>
+                    </div>
+                    <div class="button-container">
+                        <a href="https://discord.com/oauth2/authorize?client_id=1360778089231155382&scope=bot&permissions=8" 
+                           class="button" 
+                           target="_blank" 
+                           id="add-dragon-noctar-btn">
+                            🚀 Ajouter à votre serveur
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cat Thunder Bot Card -->
+            <div class="bot-card">
+                <div class="bot-header">
+                    <div class="bot-avatar">
+                        <img src="https://cdn.discordapp.com/avatars/1366753795509321879/416e7bdef0af965e3481b9f1655cdecc.png" alt="Cat Thunder">
+                    </div>
+                    <div class="bot-info">
+                        <h2 class="bot-name">Cat Thunder</h2>
+                        <span class="bot-type">War Thunder</span>
+                        <span class="bot-status status-online">En ligne</span>
+                    </div>
+                </div>
+                <div class="bot-content">
+                    <div class="bot-description">
+                        <p>🎮 War Thunder Bot est un assistant Discord innovant qui vous tient informé des dernières actualités et promotions du jeu War Thunder, enrichissant l'expérience de votre communauté et ne manquant jamais une occasion d'économiser.</p>
+                        
+                        <h3 class="features-title">✨ Caractéristiques</h3>
+                        <ul class="features-list">
+                            <li>Alertes de réductions en temps réel</li>
+                            <li>Actualités War Thunder automatisées</li>
+                            <li>Configuration simple par serveur</li>
+                            <li>Interface intuitive avec boutons</li>
+                            <li>Filtrage intelligent des contenus</li>
+                            <li>Commandes Slash intuitives</li>
+                        </ul>
+                    </div>
+                    <div class="button-container">
+                        <a href="https://discord.com/oauth2/authorize?client_id=1360778089231155382&scope=bot&permissions=8" 
+                           class="button" 
+                           target="_blank" 
+                           id="add-cat-thunder-btn">
+                            🚀 Ajouter à votre serveur
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="top-sites">
+            <h2>Retrouvez nos autre création</h2>
+            <p>Nous avons aussi crée un telechargeur d'anime <a href="https://github.com/les-developpeur/anime_Co-Chan_download/releases/download/Co-Chan/Maj.Hta" target="_blank">Co-Chan</a> il est mise a jours régulierement</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p><strong>Pour mettre le bot en notification continu sur un channel, merci de contacter @victime.exe sur Discord</strong></p>
+            <div class="creator-info">
+                <div class="creator-avatar">
+                    <img src="https://cdn.discordapp.com/avatars/1127677290076180501/475020c06273372f6cdce8d5c215a8ac.png" alt="victime.exe">
+                </div>
+                <p>Créé par <strong>victime.exe</strong></p>
+            </div>
+            <p>© 2025 Tous droits réservés</p>
+        </div>
+    </footer>
+</body>
+</html>
