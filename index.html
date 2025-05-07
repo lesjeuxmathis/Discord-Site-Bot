@@ -189,6 +189,10 @@
             text-align: center;
             margin-top: auto;
             padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
         
         .button {
@@ -222,6 +226,97 @@
         
         .button i {
             margin-right: 8px;
+        }
+
+        .tos-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--discord-light);
+            font-size: 0.95rem;
+            padding: 10px 20px;
+        }
+
+        .tos-button:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Modal pour les conditions d'utilisation */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        
+        .modal-content {
+            background-color: var(--discord-dark);
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .close-modal {
+            color: var(--discord-light);
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .close-modal:hover {
+            color: white;
+        }
+        
+        .modal-title {
+            color: white;
+            margin-top: 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+        
+        .modal-section {
+            margin-bottom: 30px;
+        }
+        
+        .modal-section h3 {
+            color: var(--discord-blue);
+            margin-bottom: 10px;
+        }
+        
+        .tos-list {
+            padding-left: 20px;
+        }
+        
+        .tos-list li {
+            margin-bottom: 10px;
+        }
+        
+        .privacy-section {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .update-info {
+            font-size: 0.9rem;
+            color: var(--discord-light);
+            opacity: 0.7;
+            margin-top: 5px;
         }
         
         footer {
@@ -333,6 +428,12 @@
                 font-size: 1rem;
                 width: auto;
             }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -379,6 +480,9 @@
                            id="add-dragon-noctar-btn">
                             🚀 Ajouter à votre serveur
                         </a>
+                        <button class="button tos-button" id="openDragonTosModal">
+                            📜 Conditions d'utilisation
+                        </button>
                     </div>
                 </div>
             </div>
@@ -416,7 +520,147 @@
                            id="add-cat-thunder-btn">
                             🚀 Ajouter à votre serveur
                         </a>
+                        <button class="button tos-button" id="openTosModal">
+                            📜 Conditions d'utilisation
+                        </button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal pour les conditions d'utilisation de Cat-Thunder -->
+        <div id="tosModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" id="closeTosModal">&times;</span>
+                <h2 class="modal-title">📜 Conditions d'utilisation – Bot Cat-Thunder</h2>
+                <p class="update-info"><strong>Dernière mise à jour :</strong> 7 mai 2025</p>
+                
+                <div class="modal-section">
+                    <p>En utilisant le bot Discord <strong>Cat-Thunder</strong>, vous acceptez les conditions suivantes :</p>
+                    
+                    <h3>1. Objectif</h3>
+                    <p>Cat-Thunder est un bot Discord conçu pour publier automatiquement les actualités, promotions et événements liés au jeu <em>War Thunder</em>. Il agit comme une passerelle d'information vers les utilisateurs des serveurs Discord où il est installé.</p>
+                    
+                    <h3>2. Fonctionnement</h3>
+                    <ul class="tos-list">
+                        <li>Cat-Thunder poste automatiquement dans un salon configuré par les administrateurs du serveur.</li>
+                        <li>Il utilise des données publiques issues du site officiel de <em>War Thunder</em> (news, devblogs, événements, etc.).</li>
+                    </ul>
+                    
+                    <h3>3. Accès et permissions</h3>
+                    <ul class="tos-list">
+                        <li>Seuls les administrateurs du serveur peuvent configurer le bot via ses commandes.</li>
+                        <li>Les utilisateurs classiques n'ont pas accès aux paramètres de configuration du bot.</li>
+                    </ul>
+                    
+                    <h3>4. Restrictions d'usage</h3>
+                    <ul class="tos-list">
+                        <li>L'usage du bot doit rester conforme aux règles de Discord et du serveur hôte.</li>
+                        <li>Il est interdit de modifier, redistribuer ou faire un usage abusif du bot.</li>
+                    </ul>
+                    
+                    <h3>5. Avertissement</h3>
+                    <ul class="tos-list">
+                        <li>Cat-Thunder <strong>n'est pas un bot officiel</strong> de Gaijin Entertainment ou de <em>War Thunder</em>.</li>
+                        <li>Son créateur ne peut être tenu responsable d'erreurs de contenu, d'interruptions de service ou de dommages causés par son usage.</li>
+                    </ul>
+                </div>
+                
+                <div class="privacy-section">
+                    <h2>🔒 Politique de confidentialité – Bot Cat-Thunder</h2>
+                    <p class="update-info"><strong>Dernière mise à jour :</strong> 7 mai 2025</p>
+                    
+                    <h3>1. Données collectées</h3>
+                    <p>Cat-Thunder ne collecte <strong>aucune donnée personnelle</strong>. Il enregistre uniquement les informations suivantes pour son bon fonctionnement :</p>
+                    <ul class="tos-list">
+                        <li>L'identifiant du serveur Discord</li>
+                        <li>L'identifiant du canal configuré pour la publication</li>
+                    </ul>
+                    
+                    <h3>2. Utilisation des données</h3>
+                    <p>Ces données servent uniquement à :</p>
+                    <ul class="tos-list">
+                        <li>Savoir où envoyer les actualités.</li>
+                        <li>Permettre la configuration par les administrateurs.</li>
+                    </ul>
+                    <p>Elles ne sont <strong>jamais partagées</strong>, vendues ou utilisées à des fins commerciales.</p>
+                    
+                    <h3>3. Stockage et sécurité</h3>
+                    <ul class="tos-list">
+                        <li>Les données sont stockées localement dans un fichier <code>server_config.json</code>.</li>
+                        <li>Aucune base de données externe ni traçage utilisateur n'est utilisé.</li>
+                        <li>Le token Discord est stocké de manière sécurisée via les variables d'environnement.</li>
+                    </ul>
+                    
+                    <h3>4. Suppression des données</h3>
+                    <p>Quand le bot est retiré d'un serveur, les données associées peuvent être supprimées manuellement ou automatiquement selon le système de nettoyage mis en place par l'hébergeur.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal pour les conditions d'utilisation de Dragon Noctar -->
+        <div id="dragonTosModal" class="modal">
+            <div class="modal-content">
+                <span class="close-modal" id="closeDragonTosModal">&times;</span>
+                <h2 class="modal-title">🤖 Conditions d'utilisation – Bot Dragon Noctar</h2>
+                <p class="update-info"><strong>Dernière mise à jour :</strong> 7 mai 2025</p>
+                
+                <div class="modal-section">
+                    <h3>1. Acceptation des conditions</h3>
+                    <p>En utilisant le bot <strong>Dragon Noctar</strong>, vous acceptez les présentes Conditions d'utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser le bot.</p>
+                    
+                    <h3>2. Fonctionnalité du bot</h3>
+                    <p>Dragon Noctar est un bot Discord conçu pour surveiller et signaler certains contenus dans les messages, notamment des éléments rares ou spécifiques dans un jeu ou une activité. Le bot peut envoyer des messages publics ou privés, collecter certains types de données, et réagir automatiquement à certains mots-clés.</p>
+                    
+                    <h3>3. Utilisation responsable</h3>
+                    <p>Vous vous engagez à :</p>
+                    <ul class="tos-list">
+                        <li>Ne pas tenter d'altérer, désactiver ou perturber le fonctionnement du bot.</li>
+                        <li>Ne pas utiliser le bot pour des activités illégales, abusives ou malveillantes.</li>
+                        <li>Respecter les règles du serveur Discord dans lequel le bot est utilisé.</li>
+                    </ul>
+                    
+                    <h3>4. Disponibilité</h3>
+                    <p>Le bot peut être mis à jour, suspendu ou désactivé à tout moment sans préavis. Aucune garantie de disponibilité permanente n'est fournie.</p>
+                    
+                    <h3>5. Limitation de responsabilité</h3>
+                    <p>Nous ne sommes pas responsables des pertes ou dommages directs ou indirects liés à l'utilisation du bot. L'utilisation du bot se fait <strong>à vos propres risques</strong>.</p>
+                </div>
+                
+                <div class="privacy-section">
+                    <h2>🔐 Politique de confidentialité de Dragon Noctar</h2>
+                    <p class="update-info"><strong>Dernière mise à jour :</strong> 7 mai 2025</p>
+                    
+                    <h3>1. Données collectées</h3>
+                    <p>Le bot peut collecter les informations suivantes :</p>
+                    <ul class="tos-list">
+                        <li>Contenu des messages publics pour détecter des mots-clés spécifiques.</li>
+                        <li>ID utilisateur et ID de serveur (pour la gestion des alertes ou MP).</li>
+                        <li>Horodatages de détection d'événements.</li>
+                    </ul>
+                    <p>Aucune donnée sensible (email, adresse IP, mot de passe, etc.) n'est collectée.</p>
+                    
+                    <h3>2. Utilisation des données</h3>
+                    <p>Les données sont utilisées uniquement pour :</p>
+                    <ul class="tos-list">
+                        <li>Détecter certains contenus selon la configuration du bot.</li>
+                        <li>Envoyer des alertes ou des notifications (privées ou publiques).</li>
+                        <li>Générer des logs pour analyse ou amélioration des performances du bot.</li>
+                    </ul>
+                    
+                    <h3>3. Partage des données</h3>
+                    <p>Aucune donnée n'est vendue ou partagée à des tiers. Les informations sont utilisées <strong>uniquement dans le cadre du fonctionnement du bot</strong>.</p>
+                    
+                    <h3>4. Conservation des données</h3>
+                    <p>Les données collectées sont conservées temporairement (le temps du traitement en mémoire vive) et ne sont pas stockées de manière persistante, sauf si le bot est configuré pour le faire (par exemple, via un système de logs local ou base de données).</p>
+                    
+                    <h3>5. Droits des utilisateurs</h3>
+                    <p>Vous pouvez à tout moment demander la suppression de vos données en contactant le développeur du bot. La désactivation ou suppression du bot du serveur supprimera également toutes les données liées à ce serveur.</p>
+                </div>
+                
+                <div class="modal-section">
+                    <h3>📬 Contact</h3>
+                    <p>Pour toute question relative aux conditions d'utilisation ou à la confidentialité, contactez le développeur via Discord : <strong>@victime.exe</strong></p>
                 </div>
             </div>
         </div>
@@ -439,5 +683,46 @@
             <p>© 2025 Tous droits réservés</p>
         </div>
     </footer>
+
+    <script>
+        // Modal pour les conditions d'utilisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cat Thunder Modal
+            var tosModal = document.getElementById('tosModal');
+            var openTosBtn = document.getElementById('openTosModal');
+            var closeTosModal = document.getElementById('closeTosModal');
+            
+            openTosBtn.onclick = function() {
+                tosModal.style.display = 'block';
+            }
+            
+            closeTosModal.onclick = function() {
+                tosModal.style.display = 'none';
+            }
+            
+            // Dragon Noctar Modal
+            var dragonTosModal = document.getElementById('dragonTosModal');
+            var openDragonTosBtn = document.getElementById('openDragonTosModal');
+            var closeDragonTosModal = document.getElementById('closeDragonTosModal');
+            
+            openDragonTosBtn.onclick = function() {
+                dragonTosModal.style.display = 'block';
+            }
+            
+            closeDragonTosModal.onclick = function() {
+                dragonTosModal.style.display = 'none';
+            }
+            
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                if (event.target == tosModal) {
+                    tosModal.style.display = 'none';
+                }
+                if (event.target == dragonTosModal) {
+                    dragonTosModal.style.display = 'none';
+                }
+            }
+        });
+    </script>
 </body>
 </html>
